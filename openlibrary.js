@@ -3,16 +3,37 @@
 //      License: MIT
 
   angular.module('book', []).factory('$book', ['$http', function($http) {
-      return { $search : function (isbn)
+      // This should eventually become search.json.isbn or .title, or .query.
+      // This could theoretically get quite large.
+      // any pull requests are welcomed
+      _method = 'GET';
+      _url = "http://openlibrary.org/search";
+      
+      return { $search : {$q : function (isbn)
                   {
-                     $scope.method = 'GET';
-                     $scope.url = "http://openlibrary.org/search.json?isbn=";
-                     $http({method: $scope.method, url: $scope.url + $scope.isbn}).
+                     
+                     $http({method: _method, url: _url + ".json?isbn=" + isbn}).
       success(function(data, status)
       {
         return data;
       });
-                  }
+                  },
+                  $title : function (title)
+                  {
+                     
+                     $http({method: _method, url: _url + $scope.isbn}).
+      success(function(data, status)
+      {
+        return data;
+      });
+                  },
             };
     }
   ]);
+
+
+// From: https://openlibrary.org/dev/docs/api/search
+//http://openlibrary.org/search?q=the+lord+of+the+rings
+//http://openlibrary.org/search?title=the+lord+of+the+rings
+//http://openlibrary.org/search.json?author=tolkien
+//http://openlibrary.org/search?q=the+lord+of+the+rings&page=2
