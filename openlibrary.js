@@ -8,28 +8,15 @@
       // any pull requests are welcomed
       _method = 'GET';
       _url = "http://openlibrary.org/search";
-      
-      return { $search : {$q : function (isbn)
-                  {
-                     
-                     $http({method: _method, url: _url + ".json?isbn=" + isbn}).
-      success(function(data, status)
-      {
-        return data;
-      });
-                  },
-                  $title : function (title)
-                  {
-                     
-                     $http({method: _method, url: _url + $scope.isbn}).
-      success(function(data, status)
-      {
-        return data;
-      });
-                  },
-            };
-    }
-  ]);
+
+      return { $search : function (number)  {
+                                               $http({method: _method, url: _url + ".json?isbn=" + number}).
+                                                 success(function(data, status){console.log("Passed" + data); return data;}). 
+                                                 error(function(data, status) {console.log("Failed" + data); return data;}) 
+                                           }
+             };
+      }
+      ]);
 
 
 // From: https://openlibrary.org/dev/docs/api/search
