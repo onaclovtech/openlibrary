@@ -1,3 +1,8 @@
+/*
+   openlibrary.js v0.0.1
+   openlibrary angular service
+   Written by Tyson Bailey
+*/
 // OpenLibrary Book Data Rest API
 // This guy should be returning promises of when it successfully send/fails emails.
 //      License: MIT
@@ -12,7 +17,7 @@ angular.module('book', []).factory('$book', ['$http',
 
         return {
             search: function(number) {
-                $http({
+                return $http({
                     method: _method,
                     url: _url + ".json?isbn=" + number
                 });
@@ -21,7 +26,7 @@ angular.module('book', []).factory('$book', ['$http',
     }
 ]);
 
-
+// query types to be added eventually
 // From: https://openlibrary.org/dev/docs/api/search
 //http://openlibrary.org/search?q=the+lord+of+the+rings
 //http://openlibrary.org/search?title=the+lord+of+the+rings
